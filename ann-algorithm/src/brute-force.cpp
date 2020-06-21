@@ -16,10 +16,6 @@ struct distance_less {
 
 };
 
-static double distance_of(const point& a, const point& b) {
-    return sqrt(pow(getX(a)-getX(b), 2)+pow(getY(a)-getY(b), 2));
-}
-
 std::vector<int> ann::brute_force_knn(const std::vector<point>& points, const point& query, int neighborAmount) {
     if(neighborAmount <= 0) {
         throw std::invalid_argument("error.neighborAmount_too_small");

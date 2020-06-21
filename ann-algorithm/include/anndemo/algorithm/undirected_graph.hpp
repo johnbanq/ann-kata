@@ -109,6 +109,18 @@ namespace ann {
 
 }
 
+// hashing logic for vertex
+
+namespace std {
+    
+    template<> struct hash<ann::vertex> {
+        std::size_t operator()(const ann::vertex& v) const noexcept {
+           return std::hash<unsigned int>{}(v.id);
+        }
+    };
+
+}
+
 // formatting logic for undirected_graph
 
 template <>

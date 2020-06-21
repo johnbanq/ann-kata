@@ -5,8 +5,9 @@
 #ifndef ANNDEMO_ALGORITHM_HNSW_H_
 #define ANNDEMO_ALGORITHM_HNSW_H_
 
-#include<vector>
-#include<list>
+#include <vector>
+#include <queue>
+#include <list>
 
 #include "point.hpp"
 #include "undirected_graph.hpp"
@@ -41,9 +42,9 @@ namespace ann {
 
     struct hnsw_parameter {
         int M;
-        int Mmax;
+        int Mmax, Mmax0;
         int efCtor;
-        int mL;
+        double mL;
         std::unique_ptr<select_neighbor_policy> select_neighbor;
     };
 
@@ -82,18 +83,13 @@ namespace ann {
 
     struct hnsw {
 
-        struct node {
-            int to;
-            double distance;
-        };
-
         hnsw_parameter param;
 
         std::vector<point> points;
 
         //layered adjlist of the graph, bidirectional-ness done by duplicating links
         //prefer adjlist over adjmatrix because I guess the graph should be sparse & ease of adding vertex
-        std::vector<undirected_graph> layered_adjlist;
+        std::vector<undirected_graph> layers;
 
     };
 
@@ -123,10 +119,10 @@ namespace ann {
 
     // internal functions, unrecommended for direct use //
 
-    std::vector<int> search_layer(
+    std::vector<vertex> hsnw_search_layer(
         const hnsw& hnsw,
         const point& q, 
-        const std::vector<int>& ep, int ef, 
+        std::unordered_set<vertex> ep, int ef, 
         int layer
     );
 

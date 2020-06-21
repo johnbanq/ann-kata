@@ -16,6 +16,10 @@ namespace ann {
         return std::get<1>(p);
     }
 
+    inline double distance_of(const point& a, const point& b) {
+      return sqrt(pow(getX(a)-getX(b), 2)+pow(getY(a)-getY(b), 2));
+    }
+
 }
 
 // formatting logic for ann::point
