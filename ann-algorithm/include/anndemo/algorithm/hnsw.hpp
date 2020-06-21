@@ -117,15 +117,6 @@ namespace ann {
      */
     std::vector<int> hnsw_knn(const hnsw& graph, const point& query, int neighborAmount);
 
-    // internal functions, unrecommended for direct use //
-
-    std::vector<vertex> hsnw_search_layer(
-        const hnsw& hnsw,
-        const point& q, 
-        std::unordered_set<vertex> ep, int ef, 
-        int layer
-    );
-
 }
 
 #endif

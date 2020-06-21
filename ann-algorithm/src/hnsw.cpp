@@ -1,26 +1,8 @@
-#include <unordered_set>
-#include "anndemo\algorithm\hnsw.hpp"
+#include "anndemo\algorithm\hnsw-internal.hpp"
 
 using namespace ann;
 
-struct dist_pair_greater {
-
-    bool operator()(const std::pair<vertex, double>& a, const std::pair<vertex, double>& b) const {
-        return a.second > b.second;
-    }
-
-};
-
-struct dist_pair_less {
-
-    bool operator()(const std::pair<vertex, double>& a, const std::pair<vertex, double>& b) const {
-        return a.second < b.second;
-    }
-
-};
-
-
-std::vector<vertex> ann::hsnw_search_layer(
+min_vertex_dist_queue ann::hsnw_search_layer(
     const hnsw& hnsw,
     const point& q, 
     std::unordered_set<vertex> ep, int ef, 
@@ -75,10 +57,5 @@ std::vector<vertex> ann::hsnw_search_layer(
         }
     }
 
-    std::vector<vertex> result(found.size());
-    for(int i=(int)found.size()-1; i >= 0 ; i--) {
-        result[i] = found.top().first;
-        found.pop();
-    }
-    return result;
+    return found;
 }
