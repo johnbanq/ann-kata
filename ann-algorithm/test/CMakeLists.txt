@@ -1,13 +1,14 @@
 
+
 add_executable(
-    ann-algorithm-test
+    brute-force-test
     test/test-main.cpp
-    test/ann-algorithm-test.cpp
+    test/brute-force-test.cpp
 )
 add_test(
-    ANN::Algorithm::Test
-    ann-algorithm-test
+    ANN::Algorithm::Test::BruteForce
+    brute-force-test
 )
 
-target_link_libraries(ann-algorithm-test PRIVATE ann-algorithm)
-target_link_libraries(ann-algorithm-test PRIVATE catch2)
+target_link_libraries(brute-force-test PRIVATE ann-algorithm)
+target_link_libraries(brute-force-test PRIVATE catch2)
