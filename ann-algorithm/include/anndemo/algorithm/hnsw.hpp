@@ -18,27 +18,15 @@ namespace ann {
 
     struct hnsw;
 
-    /**
-     * policy for selecting neighbor,
-     * exists to implement the simple-heuristic option in the algorithm
-     */
-    struct select_neighbor_policy {
+    //neighbor policy setting
+    struct select_neighbor_policy;
 
-        // polymorphic base class 
+    std::unique_ptr<select_neighbor_policy> simple_policy();
 
-        select_neighbor_policy() = default;
-        virtual ~select_neighbor_policy() = default;
-
-        // value semantics, copy & move ctor & operator= permitted
-
-        virtual std::vector<int> select_neighbors(
-            const hnsw& graph,
-            const point& q,
-            const std::vector<int>& C,
-            int M
-        ) = 0;
-
-    };
+    std::unique_ptr<select_neighbor_policy> heuristic_policy(
+        bool extendCandidates,
+        bool keepPrunedConnections        
+    );
 
     struct hnsw_parameter {
         int M;
@@ -52,33 +40,6 @@ namespace ann {
      * a default heuristic that work out the paramters for you
      */
     hnsw_parameter default_parameter(const std::vector<point>& points);
-
-
-    struct simple_select_neighbor_policy: public select_neighbor_policy {
-
-        std::vector<int> select_neighbors(
-            const hnsw& graph,
-            const point& q,
-            const std::vector<int>& C,
-            int M
-        );
-
-    };
-
-    struct heuristic_select_neighbor_policy: public select_neighbor_policy {
-
-        bool extendCandidates;
-
-        bool keepPrunedConnections;
-
-        std::vector<int> select_neighbors(
-            const hnsw& graph,
-            const point& q,
-            const std::vector<int>& C,
-            int M
-        );
-
-    };
 
 
     struct hnsw {

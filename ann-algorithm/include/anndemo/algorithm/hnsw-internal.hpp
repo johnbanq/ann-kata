@@ -45,6 +45,56 @@ namespace ann {
         int layer
     );
 
+    // select neighbor //
+
+        /**
+     * policy for selecting neighbor,
+     * exists to implement the simple-heuristic option in the algorithm
+     */
+    struct select_neighbor_policy {
+
+        // polymorphic base class 
+
+        select_neighbor_policy() = default;
+        virtual ~select_neighbor_policy() = default;
+
+        // value semantics, copy & move ctor & operator= permitted
+
+        virtual std::vector<vertex> select_neighbors(
+            const hnsw& graph,
+            const point& q,
+            const min_vertex_dist_queue& C,
+            int M
+        ) = 0;
+
+    };
+
+    struct simple_select_neighbor_policy: public select_neighbor_policy {
+
+        virtual std::vector<vertex> select_neighbors(
+            const hnsw& graph,
+            const point& q,
+            const min_vertex_dist_queue& C,
+            int M
+        );
+
+    };
+
+    struct heuristic_select_neighbor_policy: public select_neighbor_policy {
+
+        bool extendCandidates;
+
+        bool keepPrunedConnections;
+
+        virtual std::vector<vertex> select_neighbors(
+            const hnsw& graph,
+            const point& q,
+            const min_vertex_dist_queue& C,
+            int M
+        );
+
+    };
+
 }
 
 #endif
