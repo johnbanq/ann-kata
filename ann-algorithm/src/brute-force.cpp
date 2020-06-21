@@ -1,5 +1,6 @@
 #include<cstdlib>
 #include<queue>
+#include<stdexcept>
 #include "anndemo\algorithm\brute-force.hpp"
 
 using namespace ann;
@@ -20,6 +21,13 @@ static double distance_of(const point& a, const point& b) {
 }
 
 std::vector<int> ann::brute_force_knn(const std::vector<point>& points, const point& query, int neighborAmount) {
+    if(neighborAmount <= 0) {
+        throw std::invalid_argument("error.neighborAmount_too_small");
+    }
+    if(neighborAmount > points.size()) {
+        throw std::invalid_argument("error.neighborAmount_too_large");
+    }
+    
     //max heap for index-distance pair
     //we use max and pop extra elements on the go instead of heap every point and pop min approach for space saving
     std::priority_queue<
