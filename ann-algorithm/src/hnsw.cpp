@@ -2,7 +2,7 @@
 
 using namespace ann;
 
-min_vertex_dist_queue ann::hsnw_search_layer(
+max_vertex_dist_queue ann::hsnw_search_layer(
     const hnsw& hnsw,
     const point& q, 
     std::unordered_set<vertex> ep, int ef, 

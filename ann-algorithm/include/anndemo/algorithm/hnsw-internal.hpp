@@ -31,14 +31,14 @@ namespace ann {
 
     };
 
-    //min heap that keeps vertex-distance to q pair
-    using min_vertex_dist_queue = std::priority_queue<
+    //max heap that keeps vertex-distance to q pair
+    using max_vertex_dist_queue = std::priority_queue<
         std::pair<vertex, double>, 
         std::vector<std::pair<vertex, double>>,
         dist_pair_less
     >;
 
-    min_vertex_dist_queue hsnw_search_layer(
+    max_vertex_dist_queue hsnw_search_layer(
         const hnsw& hnsw,
         const point& q, 
         std::unordered_set<vertex> ep, int ef, 
@@ -63,8 +63,8 @@ namespace ann {
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
-            const min_vertex_dist_queue& C,
-            int M
+            max_vertex_dist_queue C,
+            unsigned int M
         ) = 0;
 
     };
@@ -74,8 +74,8 @@ namespace ann {
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
-            const min_vertex_dist_queue& C,
-            int M
+            max_vertex_dist_queue C,
+            unsigned int M
         );
 
     };
@@ -86,11 +86,14 @@ namespace ann {
 
         bool keepPrunedConnections;
 
+        heuristic_select_neighbor_policy(bool extendCandidates, bool keepPrunedConnections)
+            :extendCandidates(extendCandidates), keepPrunedConnections(keepPrunedConnections) {}
+
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
-            const min_vertex_dist_queue& C,
-            int M
+            max_vertex_dist_queue C,
+            unsigned int M
         );
 
     };

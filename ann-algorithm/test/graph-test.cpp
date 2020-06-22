@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "catch.hpp"
 #include "anndemo/algorithm/undirected_graph.hpp"
+#include "anndemo/format/undirected_graph.hpp"
 
 using ann::undirected_graph;
 using ann::vertex;
