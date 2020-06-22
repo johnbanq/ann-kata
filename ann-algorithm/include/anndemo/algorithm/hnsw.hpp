@@ -23,9 +23,14 @@ namespace ann {
 
     std::unique_ptr<select_neighbor_policy> simple_policy();
 
+    //disabled extendCandidates by default, you only need it for extremely clustered data
     std::unique_ptr<select_neighbor_policy> heuristic_policy(
-        bool extendCandidates,
-        bool keepPrunedConnections        
+        bool keepPrunedConnections
+    );
+
+    std::unique_ptr<select_neighbor_policy> heuristic_policy(
+        bool keepPrunedConnections,
+        bool extendCandidates
     );
 
     struct hnsw_parameter {

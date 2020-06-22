@@ -47,7 +47,7 @@ namespace ann {
 
     // select neighbor //
 
-        /**
+    /**
      * policy for selecting neighbor,
      * exists to implement the simple-heuristic option in the algorithm
      */
@@ -63,6 +63,7 @@ namespace ann {
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
+            unsigned int layer,
             max_vertex_dist_queue C,
             unsigned int M
         ) = 0;
@@ -74,6 +75,7 @@ namespace ann {
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
+            unsigned int layer,
             max_vertex_dist_queue C,
             unsigned int M
         );
@@ -92,6 +94,7 @@ namespace ann {
         virtual std::vector<vertex> select_neighbors(
             const hnsw& graph,
             const point& q,
+            unsigned int layer,
             max_vertex_dist_queue C,
             unsigned int M
         );
