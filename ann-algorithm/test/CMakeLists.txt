@@ -31,6 +31,7 @@ add_executable(
     hnsw-test
     test/test-main.cpp
     test/hnsw-test.cpp
+    test/hnsw-test-select-neighbor.cpp
 )
 add_test(
     ANN::Algorithm::HSNW

@@ -2,6 +2,18 @@
 
 using namespace ann;
 
+hnsw ann::build_hnsw(std::vector<point> points, hnsw_parameter param) {
+    hsnw graph{
+        std::move(param),
+        std::move(points),
+        {}
+    };
+
+    return graph;
+}
+
+ann::
+
 max_vertex_dist_queue ann::hsnw_search_layer(
     const hnsw& hnsw,
     const point& q, 

@@ -67,7 +67,7 @@ namespace ann {
      * 
      * @returns the HNSW graph
      */
-    hnsw build_hnsw(std::vector<point> points, const hnsw_parameter& param);
+    hnsw build_hnsw(std::vector<point> points, hnsw_parameter param);
 
     /**
      * HNSW algorithm for ANN problem
