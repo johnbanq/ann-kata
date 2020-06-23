@@ -79,11 +79,30 @@ TEST_CASE( "search_layer works on split case", "[algorithm][hnsw]" ) {
     CHECK(result == expected);
 }
 
-TEST_CASE( "build-hnsw doesnt smoke", "[algorithm]" ) {
+TEST_CASE( "build-hnsw doesnt smoke", "[algorithm][hnsw]" ) {
     const std::vector<ann::point> points {
         {10, 10},
         {20, 20},
         {30, 30}
     };
     auto result = ann::build_hnsw(points, ann::default_parameter(points));
+}
+
+TEST_CASE( "hnsw works", "[algorithm][hnsw]" ) {
+    const std::vector<ann::point> points {
+        {10, 10},
+        {20, 20},
+        {30, 30},
+        {40, 40}
+    };
+    const std::vector<int> expected {
+        0, 1
+    };
+
+    auto p = ann::default_parameter(points);
+    auto world = ann::build_hnsw(std::move(points), std::move(p));
+    //ef=6 is arbitrary
+    auto result = ann::hnsw_knn(world, {5, 5}, 2, 6);
+
+    CHECK(result == expected);
 }

@@ -11,6 +11,8 @@
 
 #include "point.hpp"
 #include "undirected_graph.hpp"
+//we put the policy related definition to somewhere else for brevity
+#include "hnsw-policy.hpp"
 
 namespace ann {
 
@@ -18,8 +20,7 @@ namespace ann {
 
     struct hnsw;
 
-    //neighbor policy setting
-    struct select_neighbor_policy;
+    // select neighbor policies //
 
     std::unique_ptr<select_neighbor_policy> simple_policy();
 
@@ -82,13 +83,14 @@ namespace ann {
      * @param graph the preprocessed HNSW graph for searching
      * @param query the point whose K-nearest neighbor to be found
      * @param neighborAmount the K value, amount of neighbor to find
+     * @param ef the algorithm's parameter
      * 
      * @returns the indexes of the neighbors in the vector that orginally created the graph, 
      *          ordered from nearest to farest
      * 
      * @throws std::invalid_argument on argument error
      */
-    std::vector<int> hnsw_knn(const hnsw& graph, const point& query, int neighborAmount);
+    std::vector<int> hnsw_knn(const hnsw& graph, const point& query, int neighborAmount, int ef);
 
 }
 

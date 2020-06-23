@@ -3,6 +3,36 @@
 
 using namespace ann;
 
+std::vector<int> ann::hnsw_knn(const hnsw& graph, const point& query, int neighborAmount, int ef) {
+    vertex ep = graph.enter_point;
+    unsigned int L = graph.pointMaxLayers[graph.enter_point.id];
+    for(unsigned int lc = L; lc>= 1; lc--) {
+        auto W = hnsw_search_layer(graph, query, {ep}, 1, lc);
+        //TODO: optimize for min
+        std::pair<vertex, double> nearest{ {0}, std::numeric_limits<double>::max() };
+        while (!W.empty()) {
+            auto now = W.top();
+            W.pop();
+            if(now.second<nearest.second) {
+                nearest = now;
+            }
+        }
+        ep = nearest.first;
+    }
+
+    auto W = hnsw_search_layer(graph, query, {ep}, ef, 0);
+    std::vector<int> result(W.size());
+    for(unsigned int i=(unsigned int)result.size();i>0;i--) {
+        unsigned int idx = i-1;
+        result[idx] = W.top().first.id;
+        W.pop();
+    }
+    result.resize(neighborAmount);
+
+    return result;
+}
+
+
 //helper function that turns list of vertex into the heap for nearest_neighbor consumption
 static max_vertex_dist_queue convert(hnsw& hnsw, vertex q, const std::list<vertex>& l) {
     max_vertex_dist_queue heap;
@@ -92,6 +122,10 @@ static void insert(
 }
 
 hnsw ann::build_hnsw(std::vector<point> points, hnsw_parameter param) {
+    if(points.empty()) {
+        throw std::invalid_argument("error.empty_points");
+    }
+
     hnsw graph{
         std::move(param),
         {},
