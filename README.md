@@ -22,5 +22,5 @@ The test suite includes basic smoke test and a comparison test between brute-for
 
 ## Requirements
 
-This project requires C++17 and cmake >= 3.10 to work
+This project requires C++17 and cmake >= 3.10 to work <br/>
 All extra dependencies are included in the lib directory, just clone with --recurse-submodule
