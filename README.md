@@ -7,10 +7,10 @@ based on paper: https://arxiv.org/ftp/arxiv/papers/1603/1603.09320.pdf
 
 this is a cmake based project, hence:
 
-> mkdir build
-> cd build
-> cmake ..
-> cmake --build .
+mkdir build <br/>
+cd build <br/>
+cmake .. <br/>
+cmake --build . <br/>
 
 should work
 
