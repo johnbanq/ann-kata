@@ -46,6 +46,7 @@ namespace ann {
      */
     hnsw_parameter default_parameter(const std::vector<point>& points);
 
+    // algorithm //
 
     struct hnsw {
 
@@ -55,7 +56,13 @@ namespace ann {
 
         //layered adjlist of the graph, bidirectional-ness done by duplicating links
         //prefer adjlist over adjmatrix because I guess the graph should be sparse & ease of adding vertex
-        std::vector<undirected_graph> layers;
+        //@note each layer graph must store all vertexes instead of the realvent subset, this is a design flaw
+        std::vector<undirected_graph> layers = {};
+
+        vertex enter_point = {0};
+
+        //the max layer of a point
+        std::vector<unsigned int> pointMaxLayers = {};
 
     };
 

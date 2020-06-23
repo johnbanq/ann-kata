@@ -26,7 +26,7 @@ TEST_CASE( "simple_select_neighbor_policy works", "[algorithm][hnsw]" ) {
         }
     };
     
-    auto found = hsnw_search_layer(
+    auto found = hnsw_search_layer(
         world,
         {15, 15},
         {{1}}, 3,
@@ -64,7 +64,7 @@ TEST_CASE( "heuristic_select_neighbor_policy works", "[algorithm][hnsw]" ) {
         }
     };
     
-    auto found = hsnw_search_layer(
+    auto found = hnsw_search_layer(
         world,
         {15, 15},
         {{1}}, 3,

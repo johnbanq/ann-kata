@@ -38,7 +38,7 @@ namespace ann {
         dist_pair_less
     >;
 
-    max_vertex_dist_queue hsnw_search_layer(
+    max_vertex_dist_queue hnsw_search_layer(
         const hnsw& hnsw,
         const point& q, 
         std::unordered_set<vertex> ep, int ef, 

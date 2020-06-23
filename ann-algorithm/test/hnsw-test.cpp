@@ -26,7 +26,7 @@ TEST_CASE( "search_layer works on naive case", "[algorithm][hnsw]" ) {
         }
     };
     
-    auto found = hsnw_search_layer(
+    auto found = hnsw_search_layer(
         world,
         {15, 15},
         {{3}}, 2,
@@ -61,7 +61,7 @@ TEST_CASE( "search_layer works on split case", "[algorithm][hnsw]" ) {
         }
     };
     
-    auto found = hsnw_search_layer(
+    auto found = hnsw_search_layer(
         world,
         {15, 15},
         {{1}, {3}}, 2,
@@ -79,4 +79,11 @@ TEST_CASE( "search_layer works on split case", "[algorithm][hnsw]" ) {
     CHECK(result == expected);
 }
 
-
+TEST_CASE( "build-hnsw doesnt smoke", "[algorithm]" ) {
+    const std::vector<ann::point> points {
+        {10, 10},
+        {20, 20},
+        {30, 30}
+    };
+    auto result = ann::build_hnsw(points, ann::default_parameter(points));
+}

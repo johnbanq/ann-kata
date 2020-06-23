@@ -50,9 +50,6 @@ std::vector<vertex> ann::simple_select_neighbor_policy::select_neighbors(
     if(layer>graph.layers.size()) {
         throw std::invalid_argument("error.invalid_layer");
     }
-    if(M>C.size()) {
-        throw std::invalid_argument("error.invalid_M");
-    }
 
     //we had to convert to the min heap for extraction
     //TODO: this is optimizable by directly make_heap on underlying vector
@@ -67,7 +64,7 @@ std::vector<vertex> ann::simple_select_neighbor_policy::select_neighbors(
     }
     
     std::vector<vertex> result(M);
-    for(unsigned int i=0;i<M;i++) {
+    for(unsigned int i=0;i<M && !min_heap.empty();i++) {
         result[i] = min_heap.top().first;
         min_heap.pop();
     }
@@ -84,9 +81,6 @@ std::vector<vertex> ann::heuristic_select_neighbor_policy::select_neighbors(
 ) {
     if(layer>graph.layers.size()) {
         throw std::invalid_argument("error.invalid_layer");
-    }
-    if(M>C.size()) {
-        throw std::invalid_argument("error.invalid_M");
     }
 
     //we had to convert to the min heap for later extraction
